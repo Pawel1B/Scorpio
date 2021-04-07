@@ -1,0 +1,36 @@
+Program Scorpio_cv2.py autor: Paweł B
+
+Na początku program zapełnia listy operacyjne aby zamieniać potem dane na prawidłowe parametry
+
+Następnie wczytywane są wszystkie pliki dostarczone do zadania do listy, aby te same
+operacje transformacji i filtracji działały na wszystkich plikach ćwiczenia jednocześnie.
+
+Następnie przy użyciu maski i filtracji eksperymentalnie zostały wyznaczone 2 zakresy wstępnej filtracji
+obrazu. Jeden przy obracie o parametrach kolorów hsv, oraz RGB.
+
+Pętla uruchamia kolejno funkcję dla kolejnych zdjęć w folderze img (można ich inicjację zoptymalizować funkcją for,
+ale i bez tego działa)
+
+Po aplikacji obu masek (filtracji zgrubnej) i wyniku result następuję zamiana na grayscale, w odpowiednim zakresie,
+oraz funkcję filtracji pośredniej (morphologyEx), które kolejno przeprowadzają operację otwarcia i dylatacji,
+które bardzo dobrze niwelują szum. Następnie funkcja close stara się przez bardzo duży kernel zamknąć przerwy w obrazie.
+
+Wynik operacji jest następnie poddawany funkcji wykrywania okręgów o określonych parametrach przez HoughCircles.
+Funkcja ta bardzo dobrze działa z parametrem cv2,HOUGH_GRADIENT_ALT, lecz funkcja ta swraca jedynie 1 okrąg na wejście,
+co wymagało by wyodrębniania obiektów, co byłoby stosunkowo trudne.
+Z uwagi na to postanowiłem zbadać pętlami for minimalną i maksymalną odległość w osiach X i Y obiektów, oraz ustawić
+odpowiednio zmieniające się warnki rysowanych okręgów.
+
+Finałowym problemem okazało się nachodzenie na siebie okręgów o promieniach spełniających poprzedni warunek
+(warunek nakładania się przybliżonego zaznaczenia okręgiem na piłkę), lecz gdy środki okręgów przylegających były poza 
+okręgiem głównym.
+Pomimo prób filtracji zależnej od obrysu obrazu, lub zliczania sum wartości funkcji wewnątrz tych okręgów dla gray[i],
+nie udało się rozwiązać tego problemu.
+Ostatecznym rozwiązaniem pozostało hard kodowanie warunków nie nakładania się okręgów w lini 109,
+która nie tylko nie jest optymalnie napisana, ale także czasami może wygenerować błąd.
+
+ALE błąd nie wpływa na wynik funkcji => funkcja działa.
+
+Wynikiem działania funkcji jest wyświetlenie 8 plików z folderu img z zaznaczonymi piłkami tenisowymi kolorem zielonym,
+oraz podanie położenia ich środka kolorem białym (wyróżnia się na zdjęciach), oraz wypisuje te punkty funkcją print(),
+dla każdego zdjęcia.
