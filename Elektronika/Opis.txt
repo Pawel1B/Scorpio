@@ -1,0 +1,27 @@
+Projekt zawiera wszystkie założenia z zadania.
+
+Dodatkowo zawiera 3-krotne zabezpieczenie przed błędnym połączeniem zasilania (specyficzny konektor, fuse + D1, Q1).
+Jest to overkill, lecz gdy np. mosfet się spali można go obejść.
+
+Dodatkowo zabezpieczenia są osobne na układ sterowania 1A F3, oraz silnik F2 3A, także teoretycznie można obejść F1,
+ale lepiej nie.
+
+Układ jest urządzeniem samodzielnym czyli jak ja to zrozumiałem nie zawiera żadnych większych modułów takich jak 
+ekhm podane poniżej (jak szukałem oled, zapomniałem o propozycjach rozwiązań)
+https://botland.com.pl/wyswietlacze-i-ekrany/8866-wyswietlacz-oled-niebieski-graficzny-096-128x64px-i2c-niebieski.html.
+
+Układ został zaprojektowany z możliwością bezpośredniego zamówienia wszystkich elementów (z montażem) przez firmę 
+produkującą PCB: JLCPCB (wszystkie elementy zostały dobrane zgodnie z ich notami katalogowymi i stanem magazynowym tej firmy).
+
+Układ nie posiada specyficznego sterownika silników DC, z uwagi na brak specyfikacji jakie sterowanie jest wymagane dla silnika.
+Został więc zastosowany prosty mosfet który umożliwia sterowanie prędkością w jednym kierunku (to ma być test koła, więc 
+drugi kierunek jazdy może być niepotrzebny, a awaryjne chamowanie jest głównie realizowane mechanicznie).
+
+Nie jestem zadowolony z projektu PCB, lecz jest to mój pierwszy projekt pcb takiego urządzenia bez gotowych modułów.
+Głównie według mnie moduł z sterownikiem powinien być wypinany (np nucleo) i wpinany do urządzenia tak samo jak wyświetlacz
+oraz bardziej narażone na uszkodzenie komponenty. Lecz po doświadczeniach z inżynierkom tam wszystko było wypinane,
+a w rozumieniu zdania tester jest urządzeniem samodzielnym lub jego złej interpretacji to nie było celem zadania.
+
+PCB ma 5 otworów które mogą umożliwić wydrukowanie osłony elementów z których się nie korzysta.
+Nie zdecydowałem się na umieszczenie elementów smd po tylnej stronie płytki gdyż po testach nie zmniejszyło by to jej rozmiarów
+lub źle pozycjonowałem komponenty.
